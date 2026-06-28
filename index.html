@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Crisis Command Center - Maestro Autonomous Orchestrator</title>
+  <meta name="description" content="An interactive playground demonstrating the autonomous incident response lifecycle managed by UiPath Maestro with AI Agents, Unattended Robots, and Human-in-the-Loop workflows.">
+  <!-- Google Fonts: Outfit and JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons for premium feel -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Header with Executive Summary Dashboard -->
+  <header class="app-header">
+    <div class="header-logo">
+      <div class="logo-icon-wrapper">
+        <i data-lucide="shield-alert" class="logo-icon animate-pulse-red"></i>
+      </div>
+      <div>
+        <h1>AI CRISIS COMMAND CENTER <span class="badge badge-danger badge-pulse" id="val-active-cases" style="vertical-align: middle; margin-left: 10px; display: inline-block;">0</span></h1>
+        <p class="subtitle">
+          Autonomous Incident Response & Compliance Engine
+          <span class="status-indicator" style="display: inline-flex; margin-left: 15px; vertical-align: middle;">
+            <span class="status-dot online"></span>
+            <span class="metric-value font-mono text-glow-purple" id="val-system-status" style="font-size: 0.65rem; margin-left: 4px;">ONLINE</span>
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Executive Summary Dashboard -->
+    <div class="metrics-grid">
+      <div class="metric-card" id="metric-total">
+        <div class="metric-info">
+          <span class="metric-label">Total Incidents</span>
+          <span class="metric-value text-glow-purple" id="val-total-incidents">124</span>
+        </div>
+        <div class="metric-icon-box purple-glow">
+          <i data-lucide="activity"></i>
+        </div>
+      </div>
+
+      <div class="metric-card" id="metric-mttc">
+        <div class="metric-info">
+          <span class="metric-label">Mean Time to Resolution (MTTR)</span>
+          <span class="metric-value text-glow-cyan" id="val-mttc">4.2 hrs</span>
+        </div>
+        <div class="metric-icon-box cyan-glow">
+          <i data-lucide="zap"></i>
+        </div>
+      </div>
+
+      <div class="metric-card" id="metric-rate">
+        <div class="metric-info">
+          <span class="metric-label">Success Rate</span>
+          <span class="metric-value text-glow-green" id="val-success-rate">98.2%</span>
+        </div>
+        <div class="metric-icon-box green-glow">
+          <i data-lucide="shield-check"></i>
+        </div>
+      </div>
+
+      <div class="metric-card" id="metric-sla">
+        <div class="metric-info">
+          <span class="metric-label">SLA Compliance</span>
+          <span class="metric-value text-glow-amber" id="val-sla-compliance">95.2%</span>
+        </div>
+        <div class="metric-icon-box amber-glow">
+          <i data-lucide="award"></i>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Dashboard Layout -->
+  <main class="dashboard-layout">
+
+    <!-- Sidebar: Scenario Control Panel & Custom Payload -->
+    <section class="sidebar" aria-label="Scenario Controls">
+      <div class="sidebar-section glass-panel">
+        <h2 class="section-title"><i data-lucide="sliders"></i> Scenario Simulator</h2>
+        <p class="section-desc">Trigger pre-configured breach incidents to test happy paths and error handling.</p>
+        
+        <div class="scenario-buttons">
+          <button class="btn btn-scenario btn-active-green" id="btn-scenario-happy">
+            <span class="scenario-number">01</span>
+            <div class="scenario-text">
+              <span class="scenario-title">Happy Path Flow</span>
+              <span class="scenario-sub">Automated isolation & legal approval</span>
+            </div>
+            <i data-lucide="chevron-right" class="arrow-icon"></i>
+          </button>
+
+          <button class="btn btn-scenario btn-active-amber" id="btn-scenario-lowconf">
+            <span class="scenario-number">02</span>
+            <div class="scenario-text">
+              <span class="scenario-title">Exception A: Low AI Confidence</span>
+              <span class="scenario-sub">Security Analyst data enrichment</span>
+            </div>
+            <i data-lucide="chevron-right" class="arrow-icon"></i>
+          </button>
+
+          <button class="btn btn-scenario btn-active-red" id="btn-scenario-botfail">
+            <span class="scenario-number">03</span>
+            <div class="scenario-text">
+              <span class="scenario-title">Exception B: Robot Failure</span>
+              <span class="scenario-sub">SLA-timer & manual intervention</span>
+            </div>
+            <i data-lucide="chevron-right" class="arrow-icon"></i>
+          </button>
+
+          <button class="btn btn-scenario btn-active-purple" id="btn-scenario-reject">
+            <span class="scenario-number">04</span>
+            <div class="scenario-text">
+              <span class="scenario-title">Exception C: Legal Rejection</span>
+              <span class="scenario-sub">Comms Agent automated redraft</span>
+            </div>
+            <i data-lucide="chevron-right" class="arrow-icon"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Custom Webhook Payload Trigger -->
+      <div class="sidebar-section glass-panel margin-top">
+        <h2 class="section-title"><i data-lucide="webhook"></i> Custom Webhook Trigger</h2>
+        <form id="webhook-payload-form" class="payload-form">
+          <div class="form-group">
+            <label for="input-source">Source System</label>
+            <select id="input-source" class="form-control">
+              <option value="CrowdStrike">CrowdStrike Falcon</option>
+              <option value="Splunk">Splunk Enterprise Security</option>
+              <option value="Wiz">Wiz Cloud Security</option>
+              <option value="SentinelOne">SentinelOne EDR</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-6">
+              <label for="input-severity">Severity Level</label>
+              <select id="input-severity" class="form-control">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+                <option value="Critical" selected>Critical</option>
+              </select>
+            </div>
+            <div class="form-group col-6">
+              <label for="input-confidence">AI Confidence (%)</label>
+              <input type="number" id="input-confidence" class="form-control" value="95" min="10" max="100">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="input-data-types">Data Types Involved</label>
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="data-pii" value="PII" checked> PII
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="data-pci" value="PCI" checked> PCI (Financial)
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="data-phi" value="PHI"> PHI (Health)
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="data-ip" value="Intellectual Property"> Intellectual Prop
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="input-assets">Impacted Assets (IDs)</label>
+            <input type="text" id="input-assets" class="form-control" value="i-0d8f8d2e8b21c43f1, i-09f182e01a88b77cc" placeholder="e.g. EC2 instance ID, User account">
+          </div>
+
+          <div class="form-group">
+            <label for="input-bot-outcome">Unattended Robot Outcome</label>
+            <select id="input-bot-outcome" class="form-control">
+              <option value="success">Success (Auto-Isolation)</option>
+              <option value="failure">Failure (AD Lockout / Timeout)</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="btn-trigger-webhook">
+            <i data-lucide="play"></i> Trigger Incident Webhook
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Main Workspace Pane -->
+    <section class="workspace-area" aria-label="Incident Pipeline Workspace">
+      
+      <!-- BPMN-style Orchestrator Flow Chart -->
+      <div class="glass-panel orchestrator-map">
+        <div class="panel-header">
+          <h2><i data-lucide="git-branch" class="text-cyan"></i> UiPath Maestro Core State Machine</h2>
+          <span class="badge" id="lbl-current-state">STATE: IDLE</span>
+        </div>
+        
+        <div class="bpmn-container">
+          <!-- Start Event -->
+          <div class="bpmn-node node-circle" id="node-start">
+            <div class="node-icon"><i data-lucide="play-circle"></i></div>
+            <div class="node-label">Start Event</div>
+          </div>
+          
+          <div class="bpmn-arrow" id="arrow-start-intake"></div>
+          
+          <!-- Incident Intake -->
+          <div class="bpmn-node" id="node-intake">
+            <div class="node-icon"><i data-lucide="download-cloud"></i></div>
+            <div class="node-label">Incident Intake</div>
+          </div>
+          
+          <div class="bpmn-arrow" id="arrow-intake-class"></div>
+          
+          <!-- Classification Agent -->
+          <div class="bpmn-node" id="node-classification">
+            <div class="node-icon"><i data-lucide="bot"></i></div>
+            <div class="node-label">Classification Agent</div>
+          </div>
+          
+          <div class="bpmn-arrow" id="arrow-class-gate1"></div>
+          
+          <!-- Gateway 1: Confidence -->
+          <div class="bpmn-gateway" id="gate-confidence">
+            <div class="gateway-text">Conf &ge; 85%?</div>
+          </div>
+          
+          <div class="bpmn-arrow arrow-yes" id="arrow-gate1-risk"></div>
+          <div class="bpmn-arrow arrow-no" id="arrow-gate1-enrich"></div>
+          
+          <!-- Exception A Branch Node: Data Enrichment -->
+          <div class="bpmn-node exception-node" id="node-enrichment">
+            <div class="node-icon"><i data-lucide="user-cog"></i></div>
+            <div class="node-label">HITL Data Enrichment</div>
+          </div>
+          
+          <div class="bpmn-arrow arrow-back" id="arrow-enrich-class"></div>
+          
+          <!-- Risk Assessment Agent -->
+          <div class="bpmn-node" id="node-risk-assessment">
+            <div class="node-icon"><i data-lucide="file-check"></i></div>
+            <div class="node-label">Risk Assessment Agent</div>
+          </div>
+          
+          <div class="bpmn-arrow" id="arrow-risk-evidence"></div>
+          
+          <!-- Evidence Collection Robot -->
+          <div class="bpmn-node" id="node-evidence-robot">
+            <div class="node-icon"><i data-lucide="terminal"></i></div>
+            <div class="node-label">Evidence Collection Robot</div>
+          </div>
+          
+          <div class="bpmn-arrow" id="arrow-evidence-gate2"></div>
+          
+          <!-- Gateway 2: Robot Success -->
+          <div class="bpmn-gateway" id="gate-robot">
+            <div class="gateway-text">Success?</div>
+          </div>
+          
+          <div class="bpmn-arrow arrow-yes" id="arrow-gate2-manager"></div>
+          <div class="bpmn-arrow arrow-no" id="arrow-gate2-manual"></div>
+          
+          <!-- Exception B Branch Node: Manual Containment -->
+          <div class="bpmn-node exception-node" id="node-manual-contain">
+            <div class="node-icon"><i data-lucide="shield-alert"></i></div>
+            <div class="node-label">Manual Containment (SLA)</div>
+          </div>
+          
+          <div class="bpmn-arrow arrow-back" id="arrow-manual-manager"></div>
+          
+          <!-- Manager Review -->
+          <div class="bpmn-node" id="node-manager-review">
+            <div class="node-icon"><i data-lucide="user-check"></i></div>
+            <div class="node-label">Manager Review</div>
+          </div>
+          
+          <div class="bpmn-arrow" id="arrow-manager-comms"></div>
+          
+          <!-- Communication Agent -->
+          <div class="bpmn-node" id="node-comms-agent">
+            <div class="node-icon"><i data-lucide="sparkles"></i></div>
+            <div class="node-label">Communication Agent</div>
+          </div>
+          
+          <div class="bpmn-arrow" id="arrow-comms-legal"></div>
+          
+          <!-- Legal Approval -->
+          <div class="bpmn-node" id="node-legal-approval">
+            <div class="node-icon"><i data-lucide="users"></i></div>
+            <div class="node-label">Legal Approval</div>
+          </div>
+          
+          <div class="bpmn-arrow" id="arrow-legal-gate3"></div>
+          
+          <!-- Gateway 3: Legal Approval -->
+          <div class="bpmn-gateway" id="gate-legal">
+            <div class="gateway-text">Approve?</div>
+          </div>
+          
+          <div class="bpmn-arrow arrow-yes" id="arrow-gate3-notification"></div>
+          <div class="bpmn-arrow arrow-no" id="arrow-gate3-reject"></div>
+          
+          <!-- Exception C Branch Node: AI Re-draft Loop -->
+          <div class="bpmn-node exception-node" id="node-redraft">
+            <div class="node-icon"><i data-lucide="refresh-cw"></i></div>
+            <div class="node-label">AI Re-draft Loop</div>
+          </div>
+          
+          <div class="bpmn-arrow arrow-back" id="arrow-redraft-comms"></div>
+          
+          <!-- Notification Robot -->
+          <div class="bpmn-node" id="node-notification-robot">
+            <div class="node-icon"><i data-lucide="send"></i></div>
+            <div class="node-label">Notification Robot</div>
+          </div>
+          
+          <div class="bpmn-arrow" id="arrow-notification-res"></div>
+          
+          <!-- Resolution -->
+          <div class="bpmn-node" id="node-resolution">
+            <div class="node-icon"><i data-lucide="archive"></i></div>
+            <div class="node-label">Resolution</div>
+          </div>
+          
+          <div class="bpmn-arrow" id="arrow-res-end"></div>
+          
+          <!-- End Event -->
+          <div class="bpmn-node node-circle node-circle-end" id="node-end">
+            <div class="node-icon"><i data-lucide="check-circle2"></i></div>
+            <div class="node-label">End Event</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Analytics & KPI Dashboard + Dynamic Timeline Panel Row -->
+      <div class="analytics-timeline-row">
+        <!-- Left: Analytics & KPIs -->
+        <div class="glass-panel dashboard-panel-left">
+          <div class="panel-header border-bottom">
+            <h3><i data-lucide="bar-chart-3" class="text-cyan"></i> Orchestration Analytics & KPIs</h3>
+            <span class="badge">REAL-TIME TELEMETRY</span>
+          </div>
+          
+          <div class="dashboard-split-grid">
+            <!-- Sub-panel 1: Incident Analytics Panel -->
+            <div class="analytics-sub-panel">
+              <h4 class="sub-panel-title">Incident Analytics</h4>
+              <div class="analytics-metrics-list">
+                <div class="analytics-item">
+                  <div class="analytics-item-header">
+                    <span>Happy Path Runs</span>
+                    <span id="val-analytics-happy" class="font-mono text-green">85</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <div id="bar-analytics-happy" class="progress-bar bg-green" style="width: 68.5%"></div>
+                  </div>
+                </div>
+                
+                <div class="analytics-item">
+                  <div class="analytics-item-header">
+                    <span>Low Confidence Cases</span>
+                    <span id="val-analytics-lowconf" class="font-mono text-amber">22</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <div id="bar-analytics-lowconf" class="progress-bar bg-amber" style="width: 17.7%"></div>
+                  </div>
+                </div>
+                
+                <div class="analytics-item">
+                  <div class="analytics-item-header">
+                    <span>Robot Failures</span>
+                    <span id="val-analytics-botfail" class="font-mono text-red">11</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <div id="bar-analytics-botfail" class="progress-bar bg-red" style="width: 8.9%"></div>
+                  </div>
+                </div>
+                
+                <div class="analytics-item">
+                  <div class="analytics-item-header">
+                    <span>Legal Rejections</span>
+                    <span id="val-analytics-reject" class="font-mono text-purple">6</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <div id="bar-analytics-reject" class="progress-bar bg-purple" style="width: 4.8%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Sub-panel 2: KPI Monitoring Panel -->
+            <div class="kpi-sub-panel">
+              <h4 class="sub-panel-title">KPI Monitoring</h4>
+              <div class="kpi-metrics-grid">
+                <div class="kpi-mini-card">
+                  <span class="kpi-label">Automation Rate</span>
+                  <span id="val-kpi-auto-rate" class="kpi-value text-glow-cyan">73.4%</span>
+                </div>
+                <div class="kpi-mini-card">
+                  <span class="kpi-label">Exception Rate</span>
+                  <span id="val-kpi-exception-rate" class="kpi-value text-glow-amber">26.6%</span>
+                </div>
+                <div class="kpi-mini-card">
+                  <span class="kpi-label">Total Processed</span>
+                  <span id="val-kpi-total-processed" class="kpi-value text-glow-purple">124</span>
+                </div>
+                <div class="kpi-mini-card">
+                  <span class="kpi-label">Avg Resolution Time</span>
+                  <span id="val-kpi-avg-resolution" class="kpi-value text-glow-green">4.2 hrs</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right: Incident Timeline Panel -->
+        <div class="glass-panel timeline-panel">
+          <div class="panel-header border-bottom">
+            <h3><i data-lucide="list-todo" class="text-cyan"></i> Incident Execution Timeline</h3>
+            <span class="badge" id="lbl-timeline-case-id">CASE: STANDBY</span>
+          </div>
+          <div class="timeline-body-scroll" id="timeline-events-container">
+            <div class="timeline-empty-state" id="timeline-empty">
+              <i data-lucide="hourglass" class="timeline-empty-icon animate-pulse"></i>
+              <p>System on standby. Waiting for incident webhook log ingest...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Case Monitor Panels -->
+      <div class="monitoring-grid">
+        
+        <!-- Tab 1: DataBreachIncident Case Database (Data Service) -->
+        <div class="glass-panel case-db-panel">
+          <div class="panel-header">
+            <h3><i data-lucide="database" class="text-purple"></i> DataBreachIncident Case Record</h3>
+            <span class="badge badge-pulse" id="val-db-incident-status">No Active Case</span>
+          </div>
+          <div class="entity-fields">
+            <div class="entity-field">
+              <span class="field-label">IncidentID</span>
+              <span class="field-value font-mono text-grey" id="val-incident-id">--</span>
+            </div>
+            <div class="entity-field">
+              <span class="field-label">SourceSystem</span>
+              <span class="field-value text-grey" id="val-source-system">--</span>
+            </div>
+            <div class="entity-field">
+              <span class="field-label">SeverityLevel</span>
+              <span class="field-value" id="val-severity-level">--</span>
+            </div>
+            <div class="entity-field">
+              <span class="field-label">AiConfidenceScore</span>
+              <span class="field-value font-mono" id="val-confidence-score">--</span>
+            </div>
+            <div class="entity-field">
+              <span class="field-label">ImpactedAssets</span>
+              <span class="field-value font-mono text-cyan" id="val-impacted-assets">[]</span>
+            </div>
+            <div class="entity-field">
+              <span class="field-label">DataTypesInvolved</span>
+              <span class="field-value font-mono text-amber" id="val-data-types">[]</span>
+            </div>
+            <div class="entity-field">
+              <span class="field-label">ContainmentStatus</span>
+              <span class="field-value" id="val-containment-status">--</span>
+            </div>
+            <div class="entity-field">
+              <span class="field-label">RegulatoryDeadline</span>
+              <span class="field-value font-mono text-red" id="val-regulatory-deadline">--</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: AI Agents Console Workspace -->
+        <div class="glass-panel ai-workspace-panel">
+          <div class="panel-header">
+            <h3><i data-lucide="sparkles" class="text-purple"></i> AI Agents Terminal Workspace</h3>
+          </div>
+          <div class="agent-tabs">
+            <button class="agent-tab active" id="tab-agent-triage" data-agent="triage">Triage & Classify</button>
+            <button class="agent-tab" id="tab-agent-risk" data-agent="risk">Risk & Compliance</button>
+            <button class="agent-tab" id="tab-agent-comms" data-agent="comms">Comms Drafts</button>
+          </div>
+          <div class="agent-terminal">
+            <div class="agent-console-log active" id="log-agent-triage">
+              <div class="console-line text-purple">// AI Triage Agent initialized. Waiting for raw logs...</div>
+            </div>
+            <div class="agent-console-log" id="log-agent-risk">
+              <div class="console-line text-purple">// Risk & Compliance Agent mapping rules. Waiting for triage scope...</div>
+            </div>
+            <div class="agent-console-log" id="log-agent-comms">
+              <div class="console-line text-purple">// Comms Agent waiting for regulatory parameters...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Unattended Robot Monitor Terminal -->
+        <div class="glass-panel robot-terminal-panel">
+          <div class="panel-header">
+            <h3><i data-lucide="terminal" class="text-cyan"></i> Unattended Robots Monitor Daemon</h3>
+            <span class="badge" id="val-robot-state">DISCONNECTED</span>
+          </div>
+          <div class="terminal-body" id="robot-shell-body">
+            <div class="terminal-prompt">$ uipath-orchestrator-agent --status</div>
+            <div class="terminal-output" id="robot-terminal-lines">
+              <div class="terminal-line text-grey">[SYSTEM] Evidence Collection Robot daemon: STANDBY</div>
+              <div class="terminal-line text-grey">[SYSTEM] Notification Delivery Robot daemon: STANDBY</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 4: UiPath Action Center (HITL Form) -->
+        <div class="glass-panel hitl-panel" id="hitl-action-center">
+          <div class="panel-header">
+            <h3><i data-lucide="clipboard-list" class="text-amber"></i> UiPath Action Center Form</h3>
+            <span class="badge badge-warning" id="hitl-pending-badge">IDLE</span>
+          </div>
+          
+          <div class="hitl-container" id="hitl-form-view">
+            <!-- Default Idle state -->
+            <div class="hitl-form-state active" id="hitl-state-idle">
+              <div class="hitl-idle-content">
+                <i data-lucide="inbox" class="idle-icon"></i>
+                <p class="idle-title">No Tasks Assigned</p>
+                <p class="idle-desc">Maestro will route forms here when human validation or approval is required.</p>
+              </div>
+            </div>
+
+            <!-- Exception A: Security Analyst Enrichment Form -->
+            <div class="hitl-form-state" id="hitl-state-enrich">
+              <h4 class="form-title text-amber"><i data-lucide="user-check"></i> Security Analyst Data Enrichment</h4>
+              <p class="form-instructions">Maestro caught exception: Low AI Confidence. The triage payload requires validation and missing logs before containment is initiated.</p>
+              <div class="form-group">
+                <label for="form-enrich-assets">Confirm Impacted Asset IDs</label>
+                <input type="text" id="form-enrich-assets" class="form-control" value="">
+              </div>
+              <div class="form-group">
+                <label for="form-enrich-severity">Confirm Severity</label>
+                <select id="form-enrich-severity" class="form-control">
+                  <option value="Low">Low</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
+                  <option value="Critical">Critical</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="form-enrich-notes">Forensic Analyst Notes</label>
+                <textarea id="form-enrich-notes" class="form-control form-textarea" placeholder="Input firewall details, detected IPs or active logs..."></textarea>
+              </div>
+              <button class="btn btn-warning w-100" id="btn-hitl-enrich-submit">
+                <i data-lucide="check-square"></i> Submit Enrichment & Re-run Triage
+              </button>
+            </div>
+
+            <!-- Exception B: Security Analyst Manual Containment Form -->
+            <div class="hitl-form-state" id="hitl-state-manual">
+              <div class="sla-alert-banner">
+                <div class="sla-timer-box">
+                  <span class="sla-label font-mono">SLA TIMER</span>
+                  <span class="sla-timer text-glow-red" id="sla-countdown">15:00</span>
+                </div>
+                <div class="sla-alert-text">
+                  <span class="alert-title font-bold text-red">ROBOT ISOLATION FAILED</span>
+                  <span class="alert-desc">SLA Breached escalation to CISO active!</span>
+                </div>
+              </div>
+              <p class="form-instructions margin-top">The unattended robot could not connect to AWS API. Execute containment steps manually immediately. Revoke AWS API keys and isolate the assets listed below.</p>
+              
+              <div class="manual-target-card">
+                <span class="target-title">Target Assets to Isolate:</span>
+                <span class="target-value font-mono text-cyan" id="manual-assets-list">i-0d8f8d2e8b21c43f1</span>
+              </div>
+
+              <div class="form-group margin-top">
+                <label class="checkbox-label font-medium text-red">
+                  <input type="checkbox" id="chk-manual-isolated" value="yes"> Confirm AWS EC2 instances isolated via security group replacement
+                </label>
+                <label class="checkbox-label font-medium text-red">
+                  <input type="checkbox" id="chk-manual-revoked" value="yes"> Confirm AD / IAM Compromised keys revoked in Active Directory
+                </label>
+              </div>
+
+              <button class="btn btn-danger w-100" id="btn-hitl-manual-submit" disabled>
+                <i data-lucide="shield-check"></i> Submit Manual Containment Confirmation
+              </button>
+            </div>
+
+            <!-- Step 6: Crisis Manager Evidence Review Form -->
+            <div class="hitl-form-state" id="hitl-state-manager">
+              <h4 class="form-title text-purple"><i data-lucide="user-check"></i> Crisis Manager Evidence Sign-off</h4>
+              <p class="form-instructions">Maestro has collected containment telemetry and forensic details. Validate containment scope before generating disclosure documents.</p>
+              
+              <div class="closure-summary-box">
+                <div class="summary-row">
+                  <span>Incident ID:</span>
+                  <span class="font-mono text-cyan" id="manager-review-incident-id">--</span>
+                </div>
+                <div class="summary-row">
+                  <span>Containment Status:</span>
+                  <span class="text-green font-bold" id="manager-review-contain-status">--</span>
+                </div>
+                <div class="summary-row">
+                  <span>Target Assets:</span>
+                  <span class="text-amber font-mono" id="manager-review-assets">[]</span>
+                </div>
+                <div class="summary-row">
+                  <span>Assigned Compliance:</span>
+                  <span class="text-purple font-mono" id="manager-review-compliance">--</span>
+                </div>
+              </div>
+
+              <div class="form-group margin-top">
+                <label for="form-manager-notes">Evidence Sign-off Notes</label>
+                <textarea id="form-manager-notes" class="form-control form-textarea" placeholder="Input evidence validation details or sign-off notes..."></textarea>
+              </div>
+
+              <button class="btn btn-success w-100" id="btn-hitl-manager-submit">
+                <i data-lucide="check-square"></i> Approve Evidence & Draft Disclosure
+              </button>
+            </div>
+
+            <!-- Stage 8: Legal Draft Review Form -->
+            <div class="hitl-form-state" id="hitl-state-legal">
+              <h4 class="form-title text-cyan"><i data-lucide="scale"></i> Legal Officer Compliance Review</h4>
+              <p class="form-instructions">Review the AI-generated CCPA/GDPR compliance notification letters. Approve the communications or reject them to request a redraft from the Comms Agent.</p>
+              
+              <div class="form-group">
+                <label for="form-legal-draft">Regulatory Disclosure Letter Draft</label>
+                <textarea id="form-legal-draft" class="form-control letter-editor font-mono" rows="12"></textarea>
+              </div>
+
+              <div class="form-group" id="reject-feedback-container" style="display: none;">
+                <label for="form-legal-feedback" class="text-red">Rejection Reason & Redraft Notes</label>
+                <textarea id="form-legal-feedback" class="form-control form-textarea" placeholder="Describe what corrections are needed (e.g. 'Inaccurate impact scope wording' or 'Adjust reporting deadline timeline')..."></textarea>
+              </div>
+
+              <div class="hitl-action-buttons">
+                <button class="btn btn-success flex-1" id="btn-hitl-legal-approve">
+                  <i data-lucide="check"></i> Approve & Sign Off
+                </button>
+                <button class="btn btn-outline-danger flex-1" id="btn-hitl-legal-reject">
+                  <i data-lucide="x"></i> Reject for Redraft
+                </button>
+                <button class="btn btn-danger flex-1" id="btn-hitl-legal-reject-submit" style="display: none;">
+                  <i data-lucide="refresh-cw"></i> Send back to AI
+                </button>
+              </div>
+            </div>
+
+            <!-- Stage 10: Crisis Manager Resolution & Closure Signoff Form -->
+            <div class="hitl-form-state" id="hitl-state-closure">
+              <h4 class="form-title text-green"><i data-lucide="folder-check"></i> Crisis Manager Incident Closure</h4>
+              <p class="form-instructions">Review final metrics and notifications. Sign off to seal the audit ledger and close the case.</p>
+              
+              <div class="closure-summary-box">
+                <div class="summary-row">
+                  <span>Incident ID:</span>
+                  <span class="font-mono" id="closure-incident-id">--</span>
+                </div>
+                <div class="summary-row">
+                  <span>Containment Type:</span>
+                  <span id="closure-contain-type" class="text-cyan">--</span>
+                </div>
+                <div class="summary-row">
+                  <span>Reporting Compliance:</span>
+                  <span class="text-green" id="closure-compliance-status">GDPR compliant</span>
+                </div>
+                <div class="summary-row">
+                  <span>Case Timeline:</span>
+                  <span id="closure-timeline" class="text-amber">--</span>
+                </div>
+              </div>
+
+              <div class="form-group margin-top">
+                <label for="form-closure-notes">Lessons Learned & Archive Notes</label>
+                <textarea id="form-closure-notes" class="form-control form-textarea" placeholder="Record incident summary notes, perimeter patches made, or employee actions required..."></textarea>
+              </div>
+
+              <button class="btn btn-success w-100" id="btn-hitl-closure-submit">
+                <i data-lucide="archive"></i> Digitally Sign & Close Incident
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Live Escalation Alert Overlay -->
+  <div class="ciso-alert-overlay" id="ciso-alert-banner" style="display: none;">
+    <div class="ciso-alert-content">
+      <div class="alert-icon-ring animate-ping"></div>
+      <i data-lucide="phone-call" class="alert-icon"></i>
+      <div class="alert-texts">
+        <h4 class="text-red">🚨 CRITICAL SLA BREACH ESCALATION</h4>
+        <p>Maestro has dispatched an urgent Webhook alert to the CISO pager system. Incident remains uncontained after SLA timeout.</p>
+      </div>
+      <button class="btn btn-small btn-dark" onclick="document.getElementById('ciso-alert-banner').style.display='none'">Acknowledge</button>
+    </div>
+  </div>
+
+  <!-- Bottom System Audit Logs -->
+  <footer class="app-footer glass-panel">
+    <div class="panel-header border-bottom">
+      <div class="header-left">
+        <h2><i data-lucide="activity-square" class="text-cyan"></i> UiPath Maestro Audit Ledger</h2>
+        <span class="subtext">Case lifecycle timeline and cryptographic event sequence</span>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-outline" id="btn-clear-logs"><i data-lucide="trash-2"></i> Clear Ledger</button>
+        <button class="btn btn-outline" id="btn-export-logs"><i data-lucide="download"></i> Download Audit PDF</button>
+      </div>
+    </div>
+    <div class="audit-log-body" id="audit-log-rows">
+      <div class="audit-row font-mono">
+        <span class="audit-time">[13:32:42]</span>
+        <span class="audit-tag tag-system">SYSTEM</span>
+        <span class="audit-message">Orchestrator online. Awaiting webhook trigger from Splunk/Crowdstrike integration...</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- State Machine Javascript -->
+  <script src="app.js"></script>
+  <script>
+    // Initialize Lucide icons on page load
+    lucide.createIcons();
+  </script>
+</body>
+</html>
