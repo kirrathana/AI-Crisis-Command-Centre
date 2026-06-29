@@ -202,6 +202,3 @@ Built as part of **UiPath AgentHack 2026**.
 
 ---
 
-# 📄 License
-
-This project was developed for **UiPath AgentHack 2026** for educational and demonstration purposes.
