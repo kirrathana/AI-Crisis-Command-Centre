@@ -39,35 +39,9 @@ This ensures the perfect balance between **automation, transparency, speed, and 
 ## 🏗️ Architecture
 
 ```
-Incident Report
-        │
-        ▼
-UiPath Maestro
-        │
-        ▼
-Classification Agent
-        │
-        ▼
-Risk Assessment Agent
-        │
-        ▼
-Confidence Evaluation
-        │
- ┌──────┴─────────┐
- │                │
-High Confidence   Low Confidence
- │                │
- ▼                ▼
-Continue      Human Approval
-Workflow      (Action Center)
- │                │
- └──────┬─────────┘
-        ▼
-Communication Agent
-        ▼
-Dashboard & Notifications
-        ▼
-Incident Closed
+<img width="571" height="1600" alt="image" src="https://github.com/user-attachments/assets/9a557df5-78f7-47b8-9dd8-202c3d2e6eea" />
+
+
 ```
 
 ---
