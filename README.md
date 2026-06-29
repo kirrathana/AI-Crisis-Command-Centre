@@ -2,6 +2,8 @@
 
 An AI-powered crisis management platform built with **UiPath Maestro** that automates incident handling through intelligent AI agents, human-in-the-loop approvals, and end-to-end workflow orchestration.
 
+**GitHub Repository:** https://github.com/kirrathana/AI-Crisis-Command-Centre
+
 ---
 
 # 📌 Overview
@@ -38,28 +40,27 @@ This creates the perfect balance between **speed, automation, transparency, and 
 
 ---
 
-
 # 🏗️ System Architecture
 
-The architecture diagram is available below.
+The architecture of the AI Crisis Command Centre is shown below.
 
 ![System Architecture](Architecture%20Diagram.jpeg)
 
-The workflow begins when an **Incident Report** is submitted. UiPath Maestro orchestrates the entire incident response process by coordinating multiple AI agents, automation, and human approvals.
+### Workflow Overview
 
-- **Classification Agent** analyzes and categorizes the incident.
-- **Risk Assessment Agent** evaluates the severity and business impact.
-- **Confidence Evaluation** determines whether the AI decision can proceed automatically.
-- High-confidence decisions continue through the workflow.
-- Low-confidence incidents are routed to **UiPath Action Center** for human approval.
-- After approval, the workflow automatically resumes.
-- The **Communication Agent** generates notifications and response summaries.
-- Finally, the dashboard is updated, notifications are sent, and the incident is successfully closed.
-
-This architecture demonstrates our **AI Confidence-Based Human Approval** approach, combining automation with human oversight for reliable crisis management.
+- **Incident Report** initiates the workflow.
+- **UiPath Maestro** orchestrates the complete incident lifecycle.
+- **Classification Agent** categorizes the incident and predicts its severity.
+- **Risk Assessment Agent** evaluates business impact and priority.
+- **Confidence Evaluation** determines whether the AI decision is sufficiently reliable.
+- **High-confidence** decisions continue automatically.
+- **Low-confidence** incidents are routed to **UiPath Action Center** for human approval.
+- Once approved, the workflow resumes automatically.
+- **Communication Agent** prepares stakeholder notifications and incident summaries.
+- **UiPath Robots** execute automated operational tasks.
+- The dashboard is updated, notifications are sent, and the incident is successfully closed.
 
 ---
-
 
 # 🛠️ Technologies Used
 
@@ -84,6 +85,19 @@ This architecture demonstrates our **AI Confidence-Based Human Approval** approa
 
 ---
 
+# 🧩 UiPath Components Used
+
+| UiPath Component | Purpose |
+|------------------|---------|
+| **UiPath Maestro** | Orchestrates the complete end-to-end incident response workflow |
+| **UiPath Agent Builder** | Creates AI agents for incident classification, risk assessment, and communication |
+| **UiPath Action Center** | Enables human review and approval for low-confidence AI decisions |
+| **UiPath Robots** | Executes automated workflow tasks and operational actions |
+| **UiPath Apps** | Provides the user interface for managing incidents |
+| **UiPath Integration Service** | Connects the workflow with external systems and services |
+
+---
+
 # ⚙️ Setup Instructions
 
 ### 1. Clone the repository
@@ -92,7 +106,7 @@ This architecture demonstrates our **AI Confidence-Based Human Approval** approa
 git clone https://github.com/kirrathana/AI-Crisis-Command-Centre.git
 ```
 
-### 2. Navigate to the project
+### 2. Navigate to the project directory
 
 ```bash
 cd AI-Crisis-Command-Centre
@@ -108,13 +122,13 @@ node -e "const http = require('http'); const fs = require('fs'); const path = re
 
 ### 4. Open the application
 
-Visit:
+Open your browser and visit:
 
 ```
 http://localhost:5173
 ```
 
-> **Note:** This is a prototype built for **UiPath AgentHack 2026** to demonstrate AI agent orchestration, workflow automation, and human-in-the-loop approvals using UiPath Maestro.
+> **Note:** This is a prototype developed for **UiPath AgentHack 2026** to demonstrate AI agent orchestration, workflow automation, and human-in-the-loop approvals using UiPath Maestro.
 
 ---
 
@@ -143,18 +157,18 @@ http://localhost:5173
 # 🚀 Benefits
 
 - Faster incident response
-- Reduced manual effort
+- Reduced manual intervention
 - Improved decision accuracy
-- Human oversight for uncertain AI decisions
+- AI-assisted decision making with human oversight
 - Transparent workflow execution
-- Scalable enterprise-ready architecture
 - Better coordination between AI agents and human experts
+- Enterprise-ready and scalable architecture
 
 ---
 
 # 📹 Demo Video
 
-Watch the complete project demonstration here:
+🎥 **Watch the complete project demonstration here:**
 
 https://youtu.be/UPLApRrDXcM?si=rvPH0JHdjVHgPIgO
 
@@ -178,9 +192,15 @@ Built as part of **UiPath AgentHack 2026**.
 
 **Project:** AI Crisis Command Centre
 
-**Team Members**
+### Team Members
 
 - Kirrathana S
 - Koshini U
 - Miruthula S V
 - Sankari G
+
+---
+
+# 📄 License
+
+This project was developed for **UiPath AgentHack 2026** for educational and demonstration purposes.
