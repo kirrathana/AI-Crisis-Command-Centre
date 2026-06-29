@@ -1,54 +1,93 @@
 # 🚨 AI Crisis Command Centre
 
-An AI-powered crisis management platform built with **UiPath Maestro** that automates incident handling through intelligent AI agents, human-in-the-loop approvals, and real-time workflow orchestration.
+An AI-powered crisis management platform built with **UiPath Maestro** that automates incident handling through intelligent AI agents, human-in-the-loop approvals, and end-to-end workflow orchestration.
 
 ---
 
-## 📌 Overview
+# 📌 Overview
 
-AI Crisis Command Centre helps emergency response organizations manage crisis incidents faster and more accurately by combining AI decision-making with human oversight.
+AI Crisis Command Centre is an intelligent incident response platform designed to help emergency response organizations manage crisis incidents quickly, accurately, and transparently.
 
-The platform automatically classifies incidents, assesses their severity, recommends appropriate actions, and generates stakeholder communications. When the AI is uncertain, the system intelligently routes the case to human experts through UiPath Action Center for approval.
+The solution orchestrates multiple AI agents using **UiPath Maestro** to classify incidents, assess risks, automate response workflows, and generate stakeholder communications. Whenever AI confidence is low, the workflow automatically routes the case to human experts through **UiPath Action Center**, ensuring reliable decision-making while maintaining the speed of automation.
 
 ---
 
-## ✨ Key Features
+# ✨ Key Features
 
 - 🤖 AI-powered Incident Classification
 - ⚠️ Intelligent Risk Assessment
 - 📢 Automated Communication Generation
 - 👤 AI Confidence-Based Human Approval
 - 🔄 End-to-End Workflow Orchestration using UiPath Maestro
-- 📊 Real-Time Dashboard
+- 🤖 Automated Workflow Execution with UiPath Robots
+- 📊 Real-Time Incident Dashboard
 - 📋 Centralized Incident Case Management
-- ⚡ Faster Emergency Response
+- ⚡ Faster and Smarter Emergency Response
 
 ---
 
-## 💡 Unique Selling Point (USP)
+# 💡 Unique Selling Point (USP)
 
-Unlike traditional automation systems, our platform introduces **AI Confidence-Based Human Approval**.
+Our solution introduces **AI Confidence-Based Human Approval**, enabling trustworthy AI-driven automation.
 
-- High-confidence AI decisions are processed automatically.
-- Low-confidence or critical incidents are routed to human experts for validation through UiPath Action Center.
+- High-confidence AI decisions continue automatically.
+- Low-confidence or critical incidents are routed to human experts through **UiPath Action Center** for review and approval.
+- Once approved, the workflow resumes automatically without restarting.
 
-This ensures the perfect balance between **automation, transparency, speed, and human oversight**.
+This creates the perfect balance between **speed, automation, transparency, and human oversight**, making the platform enterprise-ready for mission-critical incident management.
 
 ---
 
-## 🏗️ Architecture
+# 🏗️ System Architecture
+
+The architecture diagram is available below.
+
+![Architecture]("C:\Users\Sivaraj\Downloads\Architecture Diagram.jpeg")
+
+Workflow:
 
 ```
-<img width="571" height="1600" alt="image" src="https://github.com/user-attachments/assets/9a557df5-78f7-47b8-9dd8-202c3d2e6eea" />
-
-
+Incident Report
+        │
+        ▼
+UiPath Maestro
+        │
+        ▼
+Classification Agent
+        │
+        ▼
+Risk Assessment Agent
+        │
+        ▼
+Confidence Evaluation
+        │
+ ┌──────┴─────────┐
+ │                │
+High Confidence   Low Confidence
+ │                │
+ ▼                ▼
+Continue      Human Approval
+Workflow      (Action Center)
+ │                │
+ └──────┬─────────┘
+        ▼
+Communication Agent
+        │
+        ▼
+UiPath Robots
+        │
+        ▼
+Dashboard & Notifications
+        │
+        ▼
+Incident Closed
 ```
 
 ---
 
-## 🛠️ Technologies Used
+# 🛠️ Technologies Used
 
-### UiPath Products
+## UiPath Products
 
 - UiPath Maestro
 - UiPath Agent Builder
@@ -57,7 +96,7 @@ This ensures the perfect balance between **automation, transparency, speed, and 
 - UiPath Apps
 - UiPath Robots
 
-### Other Technologies
+## Other Technologies
 
 - Python
 - FastAPI
@@ -69,18 +108,53 @@ This ensures the perfect balance between **automation, transparency, speed, and 
 
 ---
 
-## 👥 End Users
+# ⚙️ Setup Instructions
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/kirrathana/AI-Crisis-Command-Centre.git
+```
+
+### 2. Navigate to the project
+
+```bash
+cd AI-Crisis-Command-Centre
+```
+
+### 3. Start the local server
+
+Run the following command:
+
+```bash
+node -e "const http = require('http'); const fs = require('fs'); const path = require('path'); const server = http.createServer((req, res) => { let filePath = '.' + req.url; if (filePath === './') filePath = './index.html'; const extname = path.extname(filePath); const contentType = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css' }[extname] || 'text/plain'; fs.readFile(filePath, (err, content) => { if (err) { res.writeHead(404); res.end('File not found'); } else { res.writeHead(200, { 'Content-Type': contentType }); res.end(content, 'utf-8'); } }); }); server.listen(5173, () => console.log('Server running at http://localhost:5173'));"
+```
+
+### 4. Open the application
+
+Visit:
+
+```
+http://localhost:5173
+```
+
+> **Note:** This is a prototype built for **UiPath AgentHack 2026** to demonstrate AI agent orchestration, workflow automation, and human-in-the-loop approvals using UiPath Maestro.
+
+---
+
+# 👥 End Users
 
 - Emergency Response Teams
 - Disaster Management Authorities
 - Government Agencies
-- Police
+- Police Departments
 - Fire Services
 - Medical Services
+- Emergency Operations Centers
 
 ---
 
-## 🏢 Target Industries
+# 🏢 Target Industries
 
 - Government
 - Public Safety
@@ -90,26 +164,27 @@ This ensures the perfect balance between **automation, transparency, speed, and 
 
 ---
 
-## 🚀 Benefits
+# 🚀 Benefits
 
-- Faster crisis response
-- Reduced manual intervention
+- Faster incident response
+- Reduced manual effort
 - Improved decision accuracy
 - Human oversight for uncertain AI decisions
-- Real-time monitoring and tracking
-- Scalable and enterprise-ready architecture
+- Transparent workflow execution
+- Scalable enterprise-ready architecture
+- Better coordination between AI agents and human experts
 
 ---
 
-## 📹 Demo
+# 📹 Demo Video
 
-Watch the demo video here:
+Watch the complete project demonstration here:
 
-> https://youtu.be/0iFufq74x9w?si=2vbKsYuy2KPCBVkm
+https://youtu.be/UPLApRrDXcM?si=rvPH0JHdjVHgPIgO
 
 ---
 
-## 🔮 Future Enhancements
+# 🔮 Future Enhancements
 
 - Multi-language AI support
 - Voice-based emergency reporting
@@ -117,16 +192,19 @@ Watch the demo video here:
 - Predictive disaster analytics
 - IoT sensor integration
 - Mobile responder application
+- Real-time emergency alert broadcasting
 
 ---
 
-## 👨‍💻 Team
+# 👨‍💻 Team
 
-Built as part of the **UiPath AgentHack 2026**.
+Built as part of **UiPath AgentHack 2026**.
 
-Project: **AI Crisis Command Centre**
-Team Members: 1. Kirrathana S
-              2. Koshini U
-              3. Miruthula S V
-              4. Sankari G
-              
+**Project:** AI Crisis Command Centre
+
+**Team Members**
+
+- Kirrathana S
+- Koshini U
+- Miruthula S V
+- Sankari G
