@@ -38,13 +38,15 @@ This creates the perfect balance between **speed, automation, transparency, and 
 
 ---
 
+
 # 🏗️ System Architecture
 
 The architecture diagram is available below.
 
-![System Architecture](Architecture Diagram.jpeg)
+![System Architecture](Architecture%20Diagram.jpeg)
 
 ---
+
 
 # 🛠️ Technologies Used
 
