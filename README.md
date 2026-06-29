@@ -42,46 +42,7 @@ This creates the perfect balance between **speed, automation, transparency, and 
 
 The architecture diagram is available below.
 
-![Architecture]("C:\Users\Sivaraj\Downloads\Architecture Diagram.jpeg")
-
-Workflow:
-
-```
-Incident Report
-        │
-        ▼
-UiPath Maestro
-        │
-        ▼
-Classification Agent
-        │
-        ▼
-Risk Assessment Agent
-        │
-        ▼
-Confidence Evaluation
-        │
- ┌──────┴─────────┐
- │                │
-High Confidence   Low Confidence
- │                │
- ▼                ▼
-Continue      Human Approval
-Workflow      (Action Center)
- │                │
- └──────┬─────────┘
-        ▼
-Communication Agent
-        │
-        ▼
-UiPath Robots
-        │
-        ▼
-Dashboard & Notifications
-        │
-        ▼
-Incident Closed
-```
+![System Architecture](Architecture Diagram.jpeg)
 
 ---
 
