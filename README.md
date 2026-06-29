@@ -45,6 +45,19 @@ The architecture diagram is available below.
 
 ![System Architecture](Architecture%20Diagram.jpeg)
 
+The workflow begins when an **Incident Report** is submitted. UiPath Maestro orchestrates the entire incident response process by coordinating multiple AI agents, automation, and human approvals.
+
+- **Classification Agent** analyzes and categorizes the incident.
+- **Risk Assessment Agent** evaluates the severity and business impact.
+- **Confidence Evaluation** determines whether the AI decision can proceed automatically.
+- High-confidence decisions continue through the workflow.
+- Low-confidence incidents are routed to **UiPath Action Center** for human approval.
+- After approval, the workflow automatically resumes.
+- The **Communication Agent** generates notifications and response summaries.
+- Finally, the dashboard is updated, notifications are sent, and the incident is successfully closed.
+
+This architecture demonstrates our **AI Confidence-Based Human Approval** approach, combining automation with human oversight for reliable crisis management.
+
 ---
 
 
